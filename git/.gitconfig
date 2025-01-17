@@ -1,0 +1,5 @@
+[user]
+	name = yutak03
+	email = yutak03.dev@gmail.com
+[commit]
+	template = /Users/yutak/.git_commit_template
