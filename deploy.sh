@@ -1,9 +1,51 @@
 #!/bin/bash
-# 配置したい設定ファイル
-dotfiles=(.zshrc)
+set -e
 
-# .zshrc という設定ファイルのシンボリックリンクを
-# ホームディレクトリ直下に作成する
-for file in "${dotfiles[@]}"; do
-        ln -svf $file ~/
-done
+DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "dotfilesをインストールします..."
+
+# シンボリックリンクを作成する関数
+create_symlink() {
+    local src=$1
+    local dst=$2
+    
+    # 既存のファイルがあればバックアップ
+    if [ -f "$dst" ] || [ -d "$dst" ]; then
+        echo "バックアップを作成: $dst -> ${dst}.backup"
+        mv "$dst" "${dst}.backup"
+    fi
+    
+    # シンボリックリンクを作成
+    echo "リンクを作成: $src -> $dst"
+    ln -sf "$src" "$dst"
+}
+
+# Bashの設定
+create_symlink "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
+create_symlink "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
+
+# Zshの設定
+create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+create_symlink "$DOTFILES_DIR/zsh/.zsh_aliases" "$HOME/.zsh_aliases"
+create_symlink "$DOTFILES_DIR/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
+
+
+# Gitの設定
+create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+create_symlink "$DOTFILES_DIR/git/.git_commit_template" "$HOME/.git_commit_template"
+
+# VSCodeの設定（ディレクトリが存在する場合のみ）
+VSCODE_CONFIG_DIR="$HOME/.config/Code/User"
+if [ -d "$VSCODE_CONFIG_DIR" ]; then
+    create_symlink "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_CONFIG_DIR/settings.json"
+fi
+
+# Weztermの設定
+WEZTERM_CONFIG_DIR="$HOME/.config/wezterm"
+if [ ! -d "$WEZTERM_CONFIG_DIR" ]; then
+    echo "Weztermの設定ディレクトリを作成: $WEZTERM_CONFIG_DIR"
+    mkdir -p "$WEZTERM_CONFIG_DIR"
+fi
+create_symlink "$DOTFILES_DIR/wezterm/wezterm.lua" "$WEZTERM_CONFIG_DIR/wezterm.lua"
+
+echo "dotfilesのインストールが完了しました！"

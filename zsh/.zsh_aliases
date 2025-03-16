@@ -1,0 +1,33 @@
+# cmd alias
+alias ls='exa'
+alias ll='ls -l'
+alias la='ls -la'
+alias rr='open -a "RustRover"'
+alias ij='open -a "IntelliJ IDEA CE"'
+alias pc='open -a "PyCharm CE"'
+alias ans='open -a "Android Studio"'
+
+# Git alias
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log'
+alias gd='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gf='git fetch'
+alias gpl='git pull'
+
+# ファイル操作関連
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+
+# システム情報
+alias df='df -h'
+alias du='du -h'
+alias free='free -m'
+alias mem='free -m | grep Mem'
