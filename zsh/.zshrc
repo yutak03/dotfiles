@@ -106,3 +106,8 @@ export PATH="/Users/yusuke/istio-1.25.0/bin:$PATH"
 
 # protoc
 export PATH="$PATH:$(go env GOPATH)/bin"
+
+# Aliases
+if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+fi
