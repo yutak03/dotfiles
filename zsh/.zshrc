@@ -1,37 +1,18 @@
-# p10k theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# zsh suggestions
-autoload -Uz colors && colors
-zstyle ":completion:*:commands" rehash 1
-
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    autoload -Uz compinit
-    compinit
-fi
-
-# history
+# ===== 基本設定 =====
+# history 設定
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=100000
 SAVEHIST=1000000
 
-# share .zshhistory
+# 履歴共有の設定
 setopt inc_append_history   # 実行時に履歴をファイルにに追加していく
 setopt share_history        # 履歴を他のシェルとリアルタイム共有する
 
+# ===== パス設定 =====
+# 重複パスを削除
 typeset -U path PATH
+
+# 基本パス設定
 path=(
   /opt/homebrew/bin(N-/)
   /opt/homebrew/sbin(N-/)
@@ -44,70 +25,86 @@ path=(
   /Library/Apple/usr/bin
 )
 
-# mise
+# ユーザー定義コマンドのパス
+export PATH="$PATH:/Users/yusuke/bin"
+
+# ===== powerlevel10k テーマ設定 =====
+# Enable Powerlevel10k instant prompt (高速起動のため最上部に配置)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# p10k テーマ読み込み
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# p10k 設定ファイル読み込み
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ===== zsh 補完・サジェスト設定 =====
+autoload -Uz colors && colors
+zstyle ":completion:*:commands" rehash 1
+
+# Homebrew 関連の補完設定
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    autoload -Uz compinit
+    compinit
+fi
+
+# ===== 開発環境設定 =====
+# mise (バージョン管理ツール)
 eval "$(/Users/yusuke/.local/bin/mise activate zsh)"
 
-# grep color
-export GREP_OPTIONS='--color=auto' 
-
-# 独自コマンドのパスを通す
-export PATH=$PATH:/Users/yusuke/bin
-
-# Flutter
+# Flutter 設定
 export PATH="$PATH:/Users/yusuke/fvm/default/bin"
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH:$HOME/.pub-cache/bin"
 
-# Go
+# Go 設定
 export PATH="$PATH:/Users/yusuke/go/bin"
-export PATH="/Users/yusuke/istio-1.20.0/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"  # protoc のために追加
 
-# Android
+# Android 設定
 export ANDROID_HOME=/Users/yusuke/Library/Android/sdk
 export NDK_HOME=/Users/yusuke/Library/Android/sdk/ndk/23.1.7779620
 
-# llvm
+# LLVM 設定
 export PATH="/opt/homebrew/opt/llvm@17/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/llvm@17/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm@17/include"
 
-# nvm
+# nvm (Node.js バージョン管理)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Cargo (Rust パッケージマネージャ)
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-# Cargo
-. "$HOME/.cargo/env"
-
-# Azure
-source '/Users/yusuke/lib/azure-cli/az.completion'
-
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/yusuke/.dart-cli-completion/zsh-config.zsh ]] && . /Users/yusuke/.dart-cli-completion/zsh-config.zsh || true
-
-## [/Completion]
-export PATH="$PATH:$HOME/fvm/default/bin"
-
-# zoxide
-eval "$(zoxide init zsh)"
-# bun completions
-[ -s "/Users/yusuke/.bun/_bun" ] && source "/Users/yusuke/.bun/_bun"
-
-# bun
+# Bun 設定
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"  # Bun 補完
 
-# istio
+# Istio 設定 (最新バージョンのみ残す)
 export PATH="/Users/yusuke/istio-1.25.0/bin:$PATH"
 
-# protoc
-export PATH="$PATH:$(go env GOPATH)/bin"
+# ===== その他のツール設定 =====
+# grep カラー設定
+export GREP_OPTIONS='--color=auto' 
 
-# Aliases
-if [ -f ~/.zsh_aliases ]; then
-    source ~/.zsh_aliases
-fi
+# zoxide (ディレクトリ移動の高度化)
+eval "$(zoxide init zsh)"
+
+# Azure CLI 補完
+[ -f '/Users/yusuke/lib/azure-cli/az.completion' ] && source '/Users/yusuke/lib/azure-cli/az.completion'
+
+# Dart CLI 補完
+[ -f "$HOME/.dart-cli-completion/zsh-config.zsh" ] && source "$HOME/.dart-cli-completion/zsh-config.zsh"
+
+# エイリアス設定の読み込み
+[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
+
+# ===== SDKMAN 設定 (ファイル末尾に必要) =====
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
