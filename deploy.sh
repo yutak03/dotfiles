@@ -20,10 +20,6 @@ create_symlink() {
     ln -sf "$src" "$dst"
 }
 
-# Bashの設定
-create_symlink "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
-create_symlink "$DOTFILES_DIR/bash/.bash_profile" "$HOME/.bash_profile"
-
 # Zshの設定
 create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 create_symlink "$DOTFILES_DIR/zsh/.zsh_aliases" "$HOME/.zsh_aliases"
