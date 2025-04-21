@@ -31,3 +31,6 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -m'
 alias mem='free -m | grep Mem'
+
+# Claude Desktop
+alias clauded='open -a "Claude"'

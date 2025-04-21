@@ -1,5 +1,10 @@
 [user]
-	name = yutak03
-	email = yutak03.dev@gmail.com
+	name = yutak
+	email = 108542848+yutak03@users.noreply.github.com
 [commit]
 	template = ~/.git_commit_template
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

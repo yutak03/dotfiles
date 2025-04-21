@@ -64,6 +64,9 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="$PATH:/Users/yusuke/go/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"  # protoc のために追加
 
+# GHC
+[ -f "/Users/yusuke/.ghcup/env" ] && . "/Users/yusuke/.ghcup/env" # ghcup-env
+
 # Android 設定
 export ANDROID_HOME=/Users/yusuke/Library/Android/sdk
 export NDK_HOME=/Users/yusuke/Library/Android/sdk/ndk/23.1.7779620

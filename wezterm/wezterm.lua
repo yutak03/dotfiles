@@ -20,9 +20,9 @@ config.font = wezterm.font {
     family = 'JetBrains Mono',
     weight = 'Medium',
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, -- disable ligatures
-  }
+}
 
-  -- フォントサイズ
+-- フォントサイズ
 config.font_size = 12.5
 
 -- 背景の非透過率（1なら完全に透過させない）
