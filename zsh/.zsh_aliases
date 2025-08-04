@@ -34,3 +34,6 @@ alias mem='free -m | grep Mem'
 
 # Claude Desktop
 alias clauded='open -a "Claude"'
+
+# lazydocker
+alias lzd='lazydocker'

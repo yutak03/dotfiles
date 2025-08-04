@@ -111,3 +111,5 @@ eval "$(zoxide init zsh)"
 # ===== SDKMAN 設定 (ファイル末尾に必要) =====
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
