@@ -16,6 +16,10 @@ config.tab_bar_at_bottom = true
 -- タブが2つ以上のときのみ、タブを表示させる
 config.hide_tab_bar_if_only_one_tab = true
 
+-- window size
+config.initial_cols = 80
+config.initial_rows = 80
+
 config.font = wezterm.font {
     family = 'JetBrains Mono',
     weight = 'Medium',
