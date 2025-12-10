@@ -26,6 +26,9 @@ config.font = wezterm.font {
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, -- disable ligatures
 }
 
+-- カラースキーム
+config.color_scheme = 'Kanagawa (Gogh)'
+
 -- フォントサイズ
 config.font_size = 12.5
 
@@ -93,7 +96,6 @@ config.keys = {
         action = wezterm.action.AdjustPaneSize { 'Right', 2 },
     },
     -- Option + Spaceでアプリ非表示
-    -- TODO: iTerm2みたいに表示/非表示のようにしたい。
     {
         key = 'Space',
         mods = 'OPT',
