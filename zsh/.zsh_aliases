@@ -21,7 +21,6 @@ alias gf='git fetch'
 alias gpl='git pull'
 
 # ファイル操作関連
-alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 alias mkdir='mkdir -p'

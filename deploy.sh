@@ -43,5 +43,15 @@ if [ ! -d "$WEZTERM_CONFIG_DIR" ]; then
     mkdir -p "$WEZTERM_CONFIG_DIR"
 fi
 create_symlink "$DOTFILES_DIR/wezterm/wezterm.lua" "$WEZTERM_CONFIG_DIR/wezterm.lua"
+create_symlink "$DOTFILES_DIR/wezterm/keybinds.lua" "$WEZTERM_CONFIG_DIR/keybinds.lua"
+
+# Neovimの設定
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+if [ -L "$NVIM_CONFIG_DIR" ] || [ -e "$NVIM_CONFIG_DIR" ]; then
+    echo "バックアップを作成: $NVIM_CONFIG_DIR -> ${NVIM_CONFIG_DIR}.backup"
+    mv "$NVIM_CONFIG_DIR" "${NVIM_CONFIG_DIR}.backup"
+fi
+echo "リンクを作成: $DOTFILES_DIR/nvim -> $NVIM_CONFIG_DIR"
+ln -sf "$DOTFILES_DIR/nvim" "$NVIM_CONFIG_DIR"
 
 echo "dotfilesのインストールが完了しました！"

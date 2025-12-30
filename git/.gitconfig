@@ -1,6 +1,6 @@
 [user]
-	name = yutak
-	email = 108542848+yutak03@users.noreply.github.com
+	name = yutak03
+	email = yutak03.dev@gmail.com
 [commit]
 	template = ~/.git_commit_template
 [filter "lfs"]
@@ -8,3 +8,17 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[core]
+	excludesfile = /Users/yusuke/.gitignore_global
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+	side-by-side = true
+	line-numbers = true
+[merge]
+    conflictStyle = zdiff3
+[ghq]
+    root = ~/workspace/repos
